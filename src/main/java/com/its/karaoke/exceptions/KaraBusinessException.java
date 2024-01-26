@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @Setter
 @Getter
-public class KaraECBusinessException extends RuntimeException {
+public class KaraBusinessException extends RuntimeException {
 
     private HttpStatus status = HttpStatus.BAD_REQUEST;
 
@@ -14,19 +14,19 @@ public class KaraECBusinessException extends RuntimeException {
 
     private String[] errors = new String[]{};
 
-    public KaraECBusinessException(String message) {
+    public KaraBusinessException(String message) {
         super(message);
         this.status = HttpStatus.BAD_REQUEST;
         this.message = message;
     }
 
-    public KaraECBusinessException(String message, HttpStatus status) {
+    public KaraBusinessException(String message, HttpStatus status) {
         super(message);
         this.status = status;
         this.message = message;
     }
 
-    public KaraECBusinessException(String message, HttpStatus status, String[] errors) {
+    public KaraBusinessException(String message, HttpStatus status, String[] errors) {
         super(message);
         this.status = status;
         this.message = message;

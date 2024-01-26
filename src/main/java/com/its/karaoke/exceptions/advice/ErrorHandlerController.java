@@ -3,7 +3,7 @@ package com.its.karaoke.exceptions.advice;
 
 import com.google.common.collect.Maps;
 import com.its.karaoke.exceptions.KaraUnauthenticated;
-import com.its.karaoke.exceptions.KaraECBusinessException;
+import com.its.karaoke.exceptions.KaraBusinessException;
 import com.its.karaoke.response.KaraEContractDto;
 import io.sentry.Sentry;
 import lombok.extern.log4j.Log4j2;
@@ -26,8 +26,8 @@ import java.util.Map;
 public class ErrorHandlerController extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(KaraECBusinessException.class)
-    public ResponseEntity handleBusinessException(KaraECBusinessException exc) {
+    @ExceptionHandler(KaraBusinessException.class)
+    public ResponseEntity handleBusinessException(KaraBusinessException exc) {
         log.error("handleBusinessException: {}", exc.getMessage());
         Sentry.captureException(exc);
         return KaraEContractDto.build()
