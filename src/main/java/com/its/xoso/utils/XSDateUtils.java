@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class KaraDateUtils {
+public class XSDateUtils {
 
     private static final long DAY_IN_MILLIS = 86400000L;
 

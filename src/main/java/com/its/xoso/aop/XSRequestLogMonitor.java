@@ -1,6 +1,6 @@
 package com.its.xoso.aop;
 
-import com.its.xoso.utils.KaraDateUtils;
+import com.its.xoso.utils.XSDateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -32,7 +32,7 @@ public class XSRequestLogMonitor {
         XSSpecialLog specialLog = method.getAnnotation(XSSpecialLog.class);
         //before
         Class clazz = proceedingJoinPoint.getTarget().getClass();
-        long startTime = KaraDateUtils.currentTimeMillis();
+        long startTime = XSDateUtils.currentTimeMillis();
         LOGGER.info("{} execute with method = {} start: {}", clazz, method.getName(), startTime);
         //start method execution
         boolean showResults = specialLog != null && specialLog.isEnabled();

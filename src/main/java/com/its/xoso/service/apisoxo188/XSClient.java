@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class FicoClient extends RetrofitAbstractCommunication {
+public class XSClient extends RetrofitAbstractCommunication {
 
     protected XSCommunicate XSCommunicate;
 
-    @Value(value = "${fico.url}")
+    @Value(value = "${XS.188}")
     String baseUrl;
 
     @PostConstruct
