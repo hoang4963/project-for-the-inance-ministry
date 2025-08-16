@@ -38,9 +38,12 @@ import com.its.xoso.repository.VanBanPhapLuatRepository;
 import com.its.xoso.type.TableName;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -83,52 +86,53 @@ public class CommonService {
 
     private final DonViRepository donViRepository;
 
-    public List<?> commonSearch(String name, Integer type, String linhVuc, String loaiHinh, String danhMuc,
-                                String tieuChi, String tinh, Integer nam, String donVi, String nguonTacDong) {
+    public Page<?> commonSearch(String name, Integer type, String linhVuc, String loaiHinh, String danhMuc,
+                                String tieuChi, String tinh, Integer nam, String donVi, String nguonTacDong,
+                                int page, int size) {
         TableName table = TableName.fromCode(type);
-        log.info("commonSearch start with params: name={}, type={}, linhVuc={}, loaiHinh={}, danhMuc={}, tieuChi={}, tinh={}, nam={}, donVi={}, nguonTacDong={}",
-                name, type, linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong);
+        log.info("commonSearch start with params: name={}, type={}, linhVuc={}, loaiHinh={}, danhMuc={}, tieuChi={}, tinh={}, nam={}, donVi={}, nguonTacDong={}, page={}, size={}",
+                name, type, linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size);
 
         return switch (table) {
             case VanBanPhapLuat -> {
                 log.info("Searching in table: VanBanPhapLuat");
-                yield vanBanPhapLuatSearch(name, nam, tinh, linhVuc, donVi);
+                yield vanBanPhapLuatSearch(name, nam, tinh, linhVuc, donVi, page, size);
             }
             case TacDongBDKH -> {
                 log.info("Searching in table: TacDongBDKH");
-                yield tacDongBDKHSearch(nam, tinh, linhVuc, donVi, loaiHinh);
+                yield tacDongBDKHSearch(nam, tinh, linhVuc, donVi, loaiHinh, page, size);
             }
             case PhatThaiKNK -> {
                 log.info("Searching in table: PhatThaiKNK");
-                yield phatThaiKNKSearch(nam, tinh, linhVuc, donVi, nguonTacDong);
+                yield phatThaiKNKSearch(nam, tinh, linhVuc, donVi, nguonTacDong, page, size);
             }
             case GiamNheThichUng -> {
                 log.info("Searching in table: GiamNheThichUng");
-                yield giamNheThichUngSearch(nam, tinh, linhVuc, donVi, loaiHinh, danhMuc);
+                yield giamNheThichUngSearch(nam, tinh, linhVuc, donVi, loaiHinh, danhMuc, page, size);
             }
             case BaoVeTangOdon -> {
                 log.info("Searching in table: BaoVeTangOdon");
-                yield baoVeTangOdonSearch(nam, tinh, linhVuc, donVi);
+                yield baoVeTangOdonSearch(nam, tinh, linhVuc, donVi, page, size);
             }
             case NghienCuuKHCN -> {
                 log.info("Searching in table: NghienCuuKHCN");
-                yield nghienCuuKHCNSearch(nam, tinh, linhVuc, donVi);
+                yield nghienCuuKHCNSearch(nam, tinh, linhVuc, donVi, page, size);
             }
             case NguonLucBDKH -> {
                 log.info("Searching in table: NguonLucBDKH");
-                yield nguonLucBDKHSearch(nam, tinh, linhVuc, donVi, tieuChi);
+                yield nguonLucBDKHSearch(nam, tinh, linhVuc, donVi, tieuChi, page, size);
             }
             case HopTacQuocTe -> {
                 log.info("Searching in table: HopTacQuocTe");
-                yield hopTacQuocTe(nam, tinh, linhVuc, donVi, tieuChi);
+                yield hopTacQuocTe(nam, tinh, linhVuc, donVi, tieuChi, page, size);
             }
             case DanhGiaDeXuat -> {
                 log.info("Searching in table: DanhGiaDeXuat");
-                yield danhGiaDeXuatSearch(nam, tinh, linhVuc);
+                yield danhGiaDeXuatSearch(nam, tinh, linhVuc, page, size);
             }
             case BieuHienBDKH -> {
                 log.info("Searching in table: BieuHienBDKH");
-                yield bieuHienBDKHSearch(nam, tinh, linhVuc, donVi, loaiHinh);
+                yield bieuHienBDKHSearch(nam, tinh, linhVuc, donVi, loaiHinh, page, size);
             }
             default -> {
                 log.error("Không tìm thấy TableName phù hợp với type={}", type);
@@ -137,49 +141,54 @@ public class CommonService {
         };
     }
 
-
-    private List<VanBanPhapLuat> vanBanPhapLuatSearch(String name, Integer year, String tinh, String linhVuc, String coQuanBanHanh) {
-        return vanBanPhapLuatRepository.findAllByConditions(name, year, getTinh(tinh), getLinhVuc(linhVuc), coQuanBanHanh);
+    private Page<VanBanPhapLuat> vanBanPhapLuatSearch(String name, Integer year, String tinh, String linhVuc, String coQuanBanHanh, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("nam").descending());
+        return vanBanPhapLuatRepository.findAllByConditions(name, year, getTinh(tinh), getLinhVuc(linhVuc), coQuanBanHanh, pageable);
     }
 
-    private List<NguonTacDongKNK> nguonTacDongKNKSearch(String linhVuc) {
-        return nguonTacDongKNKRepository.findAllByLinhVuc(getLinhVuc(linhVuc));
+    private Page<TacDongBDKH> tacDongBDKHSearch(Integer year, String tinh, String linhVuc, String donVi, String loaiHinh, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return tacDongBDKHRepository.findAllByConditions(getLinhVuc(linhVuc), getLoaiHinh(loaiHinh), getTinh(tinh), getDonVi(donVi), year, pageable);
     }
 
-    private List<TacDongBDKH> tacDongBDKHSearch(Integer year, String tinh, String linhVuc, String donVi, String loaiHinh) {
-        return tacDongBDKHRepository.findAllByConditions(getLinhVuc(linhVuc), getLoaiHinh(loaiHinh), getTinh(tinh) , getDonVi(donVi), year);
+    private Page<PhatThaiKNK> phatThaiKNKSearch(Integer year, String tinh, String linhVuc, String donVi, String nguonTacDong, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return phatThaiKNKRepository.findAllByConditions(getLinhVuc(linhVuc), getTinh(tinh), year, getNguonTacDongKNK(linhVuc, nguonTacDong), getDonVi(donVi), pageable);
     }
 
-    private List<PhatThaiKNK> phatThaiKNKSearch(Integer year, String tinh, String linhVuc, String donVi, String nguonTacDong) {
-        return phatThaiKNKRepository.findAllByConditions(getLinhVuc(linhVuc), getTinh(tinh), year, getNguonTacDongKNK(linhVuc, nguonTacDong), getDonVi(donVi));
+    private Page<GiamNheThichUng> giamNheThichUngSearch(Integer year, String tinh, String linhVuc, String donVi, String loaiHinh, String danhMuc, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return giamNheThichUngRepository.findByConditions(getLinhVuc(linhVuc), getTinh(tinh), year, getLoaiHinh(loaiHinh), getDonVi(donVi), getDanhMuc(danhMuc), pageable);
     }
 
-    private List<GiamNheThichUng> giamNheThichUngSearch(Integer year, String tinh, String linhVuc, String donVi, String loaiHinh, String danhMuc) {
-        return giamNheThichUngRepository.findByConditions(getLinhVuc(linhVuc), getTinh(tinh), year, getLoaiHinh(loaiHinh), getDonVi(donVi), getDanhMuc(danhMuc));
+    private Page<BaoVeTangOdon> baoVeTangOdonSearch(Integer year, String tinh, String linhVuc, String donVi, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return baoVeTangOdonRepository.findByTinhAndLinhVucAndDonVi(getTinh(tinh), getLinhVuc(linhVuc), year, getDonVi(donVi), pageable);
     }
 
-    private List<BaoVeTangOdon> baoVeTangOdonSearch(Integer year, String tinh, String linhVuc, String donVi) {
-        return baoVeTangOdonRepository.findByTinhAndLinhVucAndDonVi(getTinh(tinh), getLinhVuc(linhVuc), year, getDonVi(donVi));
+    private Page<NghienCuuKHCN> nghienCuuKHCNSearch(Integer year, String tinh, String linhVuc, String donVi, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return nghienCuuKHCNRepository.search(getTinh(tinh), getLinhVuc(linhVuc), year, getDonVi(donVi), pageable);
     }
 
-    private List<NghienCuuKHCN> nghienCuuKHCNSearch(Integer year, String tinh, String linhVuc, String donVi) {
-        return nghienCuuKHCNRepository.search(getTinh(tinh), getLinhVuc(linhVuc), year, getDonVi(donVi));
+    private Page<HopTacQuocTe> hopTacQuocTe(Integer year, String tinh, String linhVuc, String donVi, String tieuChi, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return hopTacQuocTeRepository.searchHopTacQuocTe(getTinh(tinh), getLinhVuc(linhVuc), getDonVi(donVi), year, getTieuChi(tieuChi), pageable);
     }
 
-    private List<HopTacQuocTe> hopTacQuocTe(Integer year, String tinh, String linhVuc, String donVi, String tieuChi) {
-        return hopTacQuocTeRepository.searchHopTacQuocTe(getTinh(tinh), getLinhVuc(linhVuc), getDonVi(donVi), year, getTieuChi(tieuChi));
+    private Page<NguonLucBDKH> nguonLucBDKHSearch(Integer year, String tinh, String linhVuc, String donVi, String tieuChi, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return nguonLucBDKHRepository.searchNguonLuc(getTinh(tinh), getLinhVuc(linhVuc), year, getDonVi(donVi), getTieuChi(tieuChi), pageable);
     }
 
-    private List<NguonLucBDKH> nguonLucBDKHSearch(Integer year, String tinh, String linhVuc, String donVi, String tieuChi) {
-        return nguonLucBDKHRepository.searchNguonLuc(getTinh(tinh), getLinhVuc(linhVuc), year, getDonVi(donVi), getTieuChi(tieuChi));
+    private Page<DanhGiaDeXuat> danhGiaDeXuatSearch(Integer year, String tinh, String linhVuc, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return danhGiaDeXuatRepository.searchDanhGiaDeXuat(getTinh(tinh), getLinhVuc(linhVuc), year, pageable);
     }
 
-    private List<DanhGiaDeXuat> danhGiaDeXuatSearch(Integer year, String tinh, String linhVuc) {
-        return danhGiaDeXuatRepository.searchDanhGiaDeXuat(getTinh(tinh), getLinhVuc(linhVuc), year);
-    }
-
-    private List<BieuHienBDKH> bieuHienBDKHSearch(Integer year, String tinh, String linhVuc, String donVi, String loaiHinh) {
-        return bieuHienBDKHRepository.searchBieuHienBDKH(getTinh(tinh), getLinhVuc(linhVuc), year, getDonVi(donVi), getLoaiHinh(loaiHinh));
+    private Page<BieuHienBDKH> bieuHienBDKHSearch(Integer year, String tinh, String linhVuc, String donVi, String loaiHinh, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return bieuHienBDKHRepository.searchBieuHienBDKH(getTinh(tinh), getLinhVuc(linhVuc), year, getDonVi(donVi), getLoaiHinh(loaiHinh), pageable);
     }
 
     private Integer getTinh(String name) {

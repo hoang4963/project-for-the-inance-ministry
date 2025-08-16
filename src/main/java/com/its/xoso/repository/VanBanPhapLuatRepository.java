@@ -1,6 +1,8 @@
 package com.its.xoso.repository;
 
 import com.its.xoso.entity.VanBanPhapLuat;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,11 +20,12 @@ public interface VanBanPhapLuatRepository extends JpaRepository<VanBanPhapLuat, 
             "AND (:tinh IS NULL OR vb.tinh = :tinh) " +
             "AND (:linhVuc IS NULL OR vb.linhVuc = :linhvuc) " +
             "AND (:coQuan IS NULL OR vb.coQuanBanHanh = :coquan)")
-    List<VanBanPhapLuat> findAllByConditions(
+    Page<VanBanPhapLuat> findAllByConditions(
             @Param("name") String name,
             @Param("year") Integer year,
             @Param("tinh") Integer tinh,
             @Param("linhVuc") Integer linhVuc,
-            @Param("coQuan") String coQuan
+            @Param("coQuan") String coQuan,
+            Pageable pageable
     );
 }
