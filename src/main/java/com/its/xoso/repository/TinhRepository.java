@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TinhRepository extends JpaRepository<Tinh, String> {
+public interface TinhRepository extends JpaRepository<Tinh, Integer> {
     Tinh findByTenTinh(String tenTinh);
 
 }
