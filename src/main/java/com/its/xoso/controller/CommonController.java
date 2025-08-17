@@ -12,11 +12,10 @@ import com.its.xoso.repository.LoaiHinhRepository;
 import com.its.xoso.repository.TieuChiRepository;
 import com.its.xoso.repository.TinhRepository;
 import com.its.xoso.service.CommonService;
+import com.its.xoso.type.TableName;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,6 +61,216 @@ public class CommonController {
 
         Page<?> result = commonSearchService.commonSearch(
                 name, type, linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-vbpl")
+    public ResponseEntity<Page<?>> searchVbpl(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.VanBanPhapLuat.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-tdbhkh")
+    public ResponseEntity<Page<?>> searchTdBDKH(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.TacDongBDKH.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-ptknk")
+    public ResponseEntity<Page<?>> searchptknk(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.PhatThaiKNK.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-giamnhe")
+    public ResponseEntity<Page<?>> searchGiamNhe(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.GiamNheThichUng.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-baove-ozon")
+    public ResponseEntity<Page<?>> searchBaove(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.BaoVeTangOdon.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-nghiencuu")
+    public ResponseEntity<Page<?>> searchNghiencuu(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.NghienCuuKHCN.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-nguonluc")
+    public ResponseEntity<Page<?>> searchNguonluc(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.NguonLucBDKH.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-hoptac")
+    public ResponseEntity<Page<?>> searchHoptac(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.HopTacQuocTe.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-danhgia")
+    public ResponseEntity<Page<?>> search(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.DanhGiaDeXuat.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/search-bieuhien-bdkh")
+    public ResponseEntity<Page<?>> searchBieuHienBDKH(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String linhVuc,
+            @RequestParam(required = false) String loaiHinh,
+            @RequestParam(required = false) String danhMuc,
+            @RequestParam(required = false) String tieuChi,
+            @RequestParam(required = false) String tinh,
+            @RequestParam(required = false) Integer nam,
+            @RequestParam(required = false) String donVi,
+            @RequestParam(required = false) String nguonTacDong,
+            @RequestParam(defaultValue = "0") int page,          // số trang (mặc định 0)
+            @RequestParam(defaultValue = "10") int size          // số bản ghi mỗi trang (mặc định 10)
+    ) {
+
+        Page<?> result = commonSearchService.commonSearch(
+                name, TableName.BieuHienBDKH.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
