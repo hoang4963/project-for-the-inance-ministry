@@ -15,13 +15,13 @@ public interface VanBanPhapLuatRepository extends JpaRepository<VanBanPhapLuat, 
 
 
     @Query("SELECT vb FROM VanBanPhapLuat vb " +
-            "WHERE (:name IS NULL OR vb.ten = :name) " +
+            "WHERE (:loaiVB IS NULL OR vb.loaiVanBan = :loaiVB) " +
             "AND (:year IS NULL OR vb.nam = :year) " +
             "AND (:tinh IS NULL OR vb.tinh = :tinh) " +
             "AND (:linhVuc IS NULL OR vb.linhVuc = :linhvuc) " +
             "AND (:coQuan IS NULL OR vb.coQuanBanHanh = :coquan)")
     Page<VanBanPhapLuat> findAllByConditions(
-            @Param("name") String name,
+            @Param("name") String loaiVB,
             @Param("year") Integer year,
             @Param("tinh") Integer tinh,
             @Param("linhVuc") Integer linhVuc,

@@ -48,4 +48,10 @@ class VanBanPhapLuat {
 
     @Column(name = "thich_ung_giam_nhe")
     private String thichUngGiamNhe;
+
+    @Column(name = "ket_qua")
+    private String ketQua;
+
+    @Column(name = "ton_tai")
+    private String tonTai;
 }

@@ -45,7 +45,7 @@ public class CommonController {
 
     @GetMapping("/search")
     public ResponseEntity<Page<?>> search(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) Integer type,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
@@ -60,14 +60,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, type, linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, type, linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-vbpl")
     public ResponseEntity<Page<?>> searchVbpl(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -81,14 +81,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.VanBanPhapLuat.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.VanBanPhapLuat.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-tdbhkh")
     public ResponseEntity<Page<?>> searchTdBDKH(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -102,14 +102,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.TacDongBDKH.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.TacDongBDKH.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-ptknk")
     public ResponseEntity<Page<?>> searchptknk(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -123,14 +123,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.PhatThaiKNK.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.PhatThaiKNK.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-giamnhe")
     public ResponseEntity<Page<?>> searchGiamNhe(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -144,14 +144,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.GiamNheThichUng.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.GiamNheThichUng.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-baove-ozon")
     public ResponseEntity<Page<?>> searchBaove(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -165,14 +165,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.BaoVeTangOdon.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.BaoVeTangOdon.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-nghiencuu")
     public ResponseEntity<Page<?>> searchNghiencuu(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -186,14 +186,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.NghienCuuKHCN.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.NghienCuuKHCN.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-nguonluc")
     public ResponseEntity<Page<?>> searchNguonluc(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -207,14 +207,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.NguonLucBDKH.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.NguonLucBDKH.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-hoptac")
     public ResponseEntity<Page<?>> searchHoptac(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -228,14 +228,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.HopTacQuocTe.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.HopTacQuocTe.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-danhgia")
     public ResponseEntity<Page<?>> search(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -249,14 +249,14 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.DanhGiaDeXuat.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.DanhGiaDeXuat.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search-bieuhien-bdkh")
     public ResponseEntity<Page<?>> searchBieuHienBDKH(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String loaiVB,
             @RequestParam(required = false) String linhVuc,
             @RequestParam(required = false) String loaiHinh,
             @RequestParam(required = false) String danhMuc,
@@ -270,7 +270,7 @@ public class CommonController {
     ) {
 
         Page<?> result = commonSearchService.commonSearch(
-                name, TableName.BieuHienBDKH.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
+                loaiVB, TableName.BieuHienBDKH.getCode(), linhVuc, loaiHinh, danhMuc, tieuChi, tinh, nam, donVi, nguonTacDong, page, size
         );
         return ResponseEntity.ok(result);
     }

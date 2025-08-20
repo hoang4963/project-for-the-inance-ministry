@@ -14,11 +14,13 @@ public interface BaoVeTangOdonRepository extends JpaRepository<BaoVeTangOdon, In
     @Query("SELECT b FROM BaoVeTangOdon b " +
             "WHERE (:tinh IS NULL OR b.tinh = :tinh) " +
             "AND (:linhVuc IS NULL OR b.linhVuc = :linhVuc) " +
+            "AND (:danhMuc IS NULL OR b.danhMuc = :danhMuc)" +
             "AND (:donVi IS NULL OR b.donViBaoCao = :donVi)" +
             "AND (:nam IS NULL OR b.nam = :nam)")
     Page<BaoVeTangOdon> findByTinhAndLinhVucAndDonVi(
             @Param("tinh") Integer tinh,
             @Param("linhVuc") Integer linhVuc,
+            @Param("danhMuc") Integer danhMuc,
             @Param("nam") Integer nam,
             @Param("donVi") Integer donVi,
             Pageable pageable

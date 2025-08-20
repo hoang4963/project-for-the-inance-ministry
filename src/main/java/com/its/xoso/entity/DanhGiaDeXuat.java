@@ -33,4 +33,19 @@ public class DanhGiaDeXuat {
 
     @Column(name = "nam")
     private Integer nam;
+
+    @Column(name = "ton_tai", columnDefinition = "TEXT")
+    private String tonTai;
+
+    @Column(name = "han_che", columnDefinition = "TEXT")
+    private String hanChe;
+
+    @Column(name = "kho_khan", columnDefinition = "TEXT")
+    private String khoKhan;
+
+    @Column(name = "giai_phap", columnDefinition = "TEXT")
+    private String giaiPhap;
+
+    @Column(name = "hien_trang_CSDL", columnDefinition = "TEXT")
+    private String hienTrang;
 }
